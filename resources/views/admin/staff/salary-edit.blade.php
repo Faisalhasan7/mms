@@ -1,0 +1,126 @@
+@extends('admin.layouts.master')
+@section('admin_content')
+
+
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">Add Staff Salary</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+
+            <div class="col-lg-12 col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="tab-pane" id="settings">
+                            <form action="{{route('admin.staff_salary_update',$staff_salary->id)}}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('put')
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="staff_id" class="form-label">Staff Name</label>
+                                            <select name="staff_id" class="js-example-basic-single form-control @error('staff_id') is-invalid @enderror" id="staff_id">
+                                                <option selected disabled >Select Border Name </option>
+                                                @foreach($staffs as $staff)
+                                                    <option {{$staff->id === $staff_salary->staff_id ? 'selected' :""}} value="{{$staff->id}}">{{$staff->staff_name}} </option>
+                                                @endforeach
+                                            </select>
+                                            @error('staff_id')
+                                            <span class="text-danger fw-bold">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    {{--<div class="col-md-6">--}}
+                                    {{--                                        <div class="mb-3">--}}
+                                    {{--                                            <label for="year" class="form-label">Year</label>--}}
+                                    <input type="hidden" class="form-control @error('year') is-invalid @enderror" name="year" id="year" value="{{date('Y')}}">
+                                    @error('year')
+                                    <span class="text-danger fw-bold">{{$message}}</span>
+                                    @enderror
+                                    {{--                                        </div>--}}
+                                    {{--                                    </div>--}}
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="month" class="form-label">Rent Month</label>
+                                            <select name="month" class="form-select @error('month') is-invalid @enderror" id="month">
+                                                <option selected disabled >Select Month </option>
+                                                <option {{$staff_salary->month === 'January' ? 'selected' :""}} value="January">January</option>
+                                                <option {{$staff_salary->month === 'February' ? 'selected' :""}} value="February">February</option>
+                                                <option {{$staff_salary->month === 'March' ? 'selected' :""}} value="March">March</option>
+                                                <option {{$staff_salary->month === 'April' ? 'selected' :""}} value="April">April</option>
+                                                <option {{$staff_salary->month === 'May' ? 'selected' :""}} value="May">May</option>
+                                                <option {{$staff_salary->month === 'June' ? 'selected' :""}} value="June">June</option>
+                                                <option {{$staff_salary->month === 'July' ? 'selected' :""}} value="July">July</option>
+                                                <option {{$staff_salary->month === 'August' ? 'selected' :""}} value="August">August</option>
+                                                <option {{$staff_salary->month === 'September' ? 'selected' :""}} value="September">September</option>
+                                                <option {{$staff_salary->month === 'October' ? 'selected' :""}} value="October">October</option>
+                                                <option {{$staff_salary->month === 'November' ? 'selected' :""}} value="November">November</option>
+                                                <option {{$staff_salary->month === 'December' ? 'selected' :""}} value="December">December</option>
+                                            </select>
+                                            @error('date')
+                                            <span class="text-danger"> {{ $message }} </span>
+                                            @enderror
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="date" class="form-label">Payment Date</label>
+                                            <input type="date" class="form-control @error('date') is-invalid @enderror" name="date" id="date" value="{{$staff_salary->date}}">
+                                            @error('date')
+                                            <span class="text-danger fw-bold">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label for="amount" class="form-label">Amount</label>
+                                            <input type="number" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount" value="{{$staff_salary->amount}}">
+                                            @error('amount')
+                                            <span class="text-danger fw-bold">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-blue waves-effect waves-light mt-2"><i class="mdi mdi-content-save"></i> Update</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- end settings content-->
+                    </div>
+                </div> <!-- end card-->
+
+            </div> <!-- end col -->
+        </div>
+        <!-- end row-->
+
+    </div> <!-- container -->
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script >
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
+
+
+@endsection
+
